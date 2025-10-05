@@ -23,16 +23,18 @@ Then: GitHub → Settings → SSH and GPG keys → New SSH key → paste → Sav
   ))
   
 🗂 Project structure
+
 Group-9-FoE/
-- Scripts/
-     Data cleaning.R              # main cleaning script
-     get_data.R                   # (optional) downloads large data
-- Data/
-      Raw/                         # large raw files (ignored by Git)
-      Sorted/                      # cleaned / derived data saved here
-- README.md
-- .gitignore
-- group-9-FoE.Rproj
+├── Scripts/
+│   ├── Data cleaning.R              # main cleaning script
+│   └── get_data.R                   # (optional) downloads large data
+├── Data/
+│   ├── Raw/                         # large raw files (ignored by Git)
+│   └── Sorted/                      # cleaned / derived data saved here
+├── README.md
+├── .gitignore
+└── group-9-FoE.Rproj
+
 
 Large data (Data/Raw/*.csv, Data/Raw/*.rds) are not tracked by Git.
 Share via Drive/Dropbox and/or populate with Scripts/get_data.R.
@@ -47,17 +49,22 @@ Share via Drive/Dropbox and/or populate with Scripts/get_data.R.
 
 🔄 Git workflow (team)
 1. Pull latest
-   git pull
+
+  git pull
+
 2. Do your work (edit scripts / add new ones).
 3. Stage → Commit → Push
+
   git add Scripts/ Data/Sorted/ README.md
   git commit -m "Add X; fix Y"
   git push
+
 4. If you’re doing bigger changes, create a branch + PR:
+
   git checkout -b feature/my-change
   # work, commit, push
   git push -u origin feature/my-change
-  
+
   Open a Pull Request on GitHub → one teammate reviews → Merge.
 
 Rule of thumb
