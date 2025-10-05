@@ -11,19 +11,22 @@ R code and data workflow for our Econometrics/ML work.
 Then: GitHub → Settings → SSH and GPG keys → New SSH key → paste → Save.
 
   2) Clone via SSH:
+  ```
     git clone git@github.com:martinsins/Group-9-FoE.git
     cd Group-9-FoE
+    ```
 
 🧰 Environment
 - R: 4.1+ (RStudio recommended)
 - Core packages (install once):
-  
+  ```
   install.packages(c(
   "tidyverse","dplyr","readr","janitor","lubridate","here"
   ))
+  ```
   
 🗂 Project structure
-
+```
 Group-9-FoE/
 ├── Scripts/
 │   ├── Data cleaning.R              # main cleaning script
@@ -34,6 +37,7 @@ Group-9-FoE/
 ├── README.md
 ├── .gitignore
 └── group-9-FoE.Rproj
+```
 
 
 Large data (Data/Raw/*.csv, Data/Raw/*.rds) are not tracked by Git.
@@ -49,21 +53,24 @@ Share via Drive/Dropbox and/or populate with Scripts/get_data.R.
 
 🔄 Git workflow (team)
 1. Pull latest
-
+```
   git pull
+  ```
 
 2. Do your work (edit scripts / add new ones).
 3. Stage → Commit → Push
-
+```
   git add Scripts/ Data/Sorted/ README.md
   git commit -m "Add X; fix Y"
   git push
+  ```
 
 4. If you’re doing bigger changes, create a branch + PR:
-
+```
   git checkout -b feature/my-change
   # work, commit, push
   git push -u origin feature/my-change
+  ```
 
   Open a Pull Request on GitHub → one teammate reviews → Merge.
 
