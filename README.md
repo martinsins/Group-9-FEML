@@ -78,17 +78,19 @@ Share them via Google Drive or Dropbox if needed.
 ──────────────────────────────────────────────────────────────
 
 1. Pull the latest changes
-       git pull
+```
+git pull
+```
 
-2. Do your work
+4. Do your work
        # edit scripts or add new ones
 
-3. Stage, Commit, and Push
+5. Stage, Commit, and Push
        git add Scripts/ Data/Sorted/ README.md
        git commit -m "Add new cleaning step / fix variable names"
        git push
 
-4. (Optional) Work on a new feature branch
+6. (Optional) Work on a new feature branch
        git checkout -b feature/my-change
        # make edits
        git add .
