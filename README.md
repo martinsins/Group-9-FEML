@@ -9,10 +9,10 @@ R code and data workflow for our Econometrics and Machine Learning project.
 
 macOS / Linux:
 
-    ```ssh-keygen -t ed25519 -C "your_email@example.com"
+    ssh-keygen -t ed25519 -C "your_email@example.com"
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_ed25519
-    pbcopy < ~/.ssh/id_ed25519.pub   # copies the public key```
+    pbcopy < ~/.ssh/id_ed25519.pub   # copies the public key
 
 
 Then go to GitHub → Settings → SSH and GPG keys → New SSH key → paste → Save.
