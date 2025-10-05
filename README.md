@@ -8,6 +8,7 @@ R code and data workflow for our Econometrics and Machine Learning project.
 1. Generate and Add an SSH Key (recommended)
 
 macOS / Linux:
+
     ```ssh-keygen -t ed25519 -C "your_email@example.com"
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_ed25519
