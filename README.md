@@ -48,7 +48,8 @@ Group-9-FoE/
 │
 ├── .gitignore
 ├── README.md
-└── group-9-FoE.Rproj```
+└── group-9-FoE.Rproj
+```
 
 ⚠️ Large files (Data/Raw/*.csv, Data/Raw/*.rds) are ignored by Git.
 Share them via Google Drive or Dropbox if needed.
