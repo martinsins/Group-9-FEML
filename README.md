@@ -8,16 +8,11 @@ R code and data workflow for our Econometrics and Machine Learning project.
 1. Generate and Add an SSH Key (recommended)
 
 macOS / Linux:
-    ssh-keygen -t ed25519 -C "your_email@example.com"
+    ```ssh-keygen -t ed25519 -C "your_email@example.com"
     eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_ed25519
     pbcopy < ~/.ssh/id_ed25519.pub   # copies the public key
 
-Windows (Git Bash):
-    ssh-keygen -t ed25519 -C "your_email@example.com"
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_ed25519
-    cat ~/.ssh/id_ed25519.pub        # copy this manually
 
 Then go to GitHub → Settings → SSH and GPG keys → New SSH key → paste → Save.
 
