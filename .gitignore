@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+Data/Raw/*.csv
+Data/Raw/*.rds
+
+# large data
+Data/Raw/*.csv
+Data/Raw/*.rds
+*.DS_Store
+.Rhistory
+.Rproj.user/
