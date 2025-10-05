@@ -24,15 +24,15 @@ Then: GitHub → Settings → SSH and GPG keys → New SSH key → paste → Sav
   
 🗂 Project structure
 Group-9-FoE/
-├── Scripts/
-│   ├── Data cleaning.R              # main cleaning script
-│   └── get_data.R                   # (optional) downloads large data
-├── Data/
-│   ├── Raw/                         # large raw files (ignored by Git)
-│   └── Sorted/                      # cleaned / derived data saved here
-├── README.md
-├── .gitignore
-└── group-9-FoE.Rproj
+- Scripts/
+     Data cleaning.R              # main cleaning script
+     get_data.R                   # (optional) downloads large data
+- Data/
+      Raw/                         # large raw files (ignored by Git)
+      Sorted/                      # cleaned / derived data saved here
+- README.md
+- .gitignore
+- group-9-FoE.Rproj
 
 Large data (Data/Raw/*.csv, Data/Raw/*.rds) are not tracked by Git.
 Share via Drive/Dropbox and/or populate with Scripts/get_data.R.
