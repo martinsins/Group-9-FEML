@@ -86,9 +86,11 @@ git pull
        # edit scripts or add new ones
 
 5. Stage, Commit, and Push
+```
        git add Scripts/ Data/Sorted/ README.md
        git commit -m "Add new cleaning step / fix variable names"
        git push
+```
 
 6. (Optional) Work on a new feature branch
        git checkout -b feature/my-change
