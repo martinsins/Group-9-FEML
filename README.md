@@ -54,20 +54,15 @@ we aim to identify whether shifts in political control correlate with measurable
 
 📂 Data Files
 File	Description	Use
-monthly_raw_Iowa_Illinois_Michigan_1973_1991.csv	Monthly-level data for all police-reported offenses between 1973 and 1991 across Illinois, Iowa, and Michigan.	Contains the most granular information for time-series or monthly aggregation analyses.
-city_year_Iowa_Illinois_Michigan_1973_1991.csv	Aggregated at the city-year level (ZIP code granularity). Includes annual totals for crimes and population.	Core dataset used for city-level analysis — restricted to cities ≥85,000 inhabitants.
-state_group_year_sorted_MI_IL_IA_1973_1991.csv	Aggregated at the state-year-city-size level.	Used for comparing crime trends across states and by city size (e.g., medium vs. large).
+- monthly_raw_Iowa_Illinois_Michigan_1973_1991.csv: Monthly-level data for all police-reported offenses between 1973 and 1991 across Illinois, Iowa, and Michigan.	Contains the most granular information for time-series or monthly aggregation analyses.
+- city_year_Iowa_Illinois_Michigan_1973_1991.csv:	Aggregated at the city-year level (ZIP code granularity). Includes annual totals for crimes and population.	Core dataset used for city-level analysis — restricted to cities ≥85,000 inhabitants.
+- state_group_year_sorted_MI_IL_IA_1973_1991.csv: Aggregated at the state-year-city-size level.	Used for comparing crime trends across states and by city size (e.g., medium vs. large).
 🧮 Summary
-
-Period: 1973–1991
-
-States analyzed: Illinois, Iowa, Michigan
-
-Population threshold: ≥85,000 inhabitants
-
-Number of cities: 28
-
-Goal: Assess how political transitions at the state level (governor changes) correlate with shifts in crime ratesping all relevant variables for analysis.
+- Period: 1973–1991
+- States analyzed: Illinois, Iowa, Michigan
+- Population threshold: ≥85,000 inhabitants
+- Number of cities: 28
+- Goal: Assess how political transitions at the state level (governor changes) correlate with shifts in crime ratesping all relevant variables for analysis.
 
 ---
 
