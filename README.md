@@ -17,6 +17,7 @@ Rscript Scripts/02_baseline_twfe.R
 Rscript Scripts/03_staggered_did.R
 Rscript Scripts/04_robustness.R
 Rscript Scripts/05_figs_tables.R
+```
 
 # Project title
 ## 📊 EXTENSION: STATE GOVERNOR ANALYSIS (2025 ADDITION)
