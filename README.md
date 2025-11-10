@@ -1,3 +1,23 @@
+# Governors & Crime (IL/IA/MI, 1973–1991): DiD/FE
+
+## Goal
+Estimate how state governor party (R vs D) relates to city-level crime rates (violent, property) via DiD with city and year fixed effects, plus event-study for pre-trends.
+
+## Data layout
+- `Data/Raw/`: original city-year crime & population
+- `Data/External/gov_party_states_1970_1992.csv`: governor party by state-year with `switch_year`
+- `Data/Processed/`: analysis-ready panels
+
+## Repro steps
+```bash
+R -q -e "renv::restore()"
+Rscript Scripts/00_data_check.R
+Rscript Scripts/01_governor_party.R
+Rscript Scripts/02_baseline_twfe.R
+Rscript Scripts/03_staggered_did.R
+Rscript Scripts/04_robustness.R
+Rscript Scripts/05_figs_tables.R
+
 # Project title
 ## 📊 EXTENSION: STATE GOVERNOR ANALYSIS (2025 ADDITION)
 
