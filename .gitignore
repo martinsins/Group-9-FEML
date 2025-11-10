@@ -12,14 +12,3 @@ Data/Raw/*.rds
 .Rhistory
 .Rproj.user/
 
-# Ignore everything in Data by default
-Data/**
-
-# Allow these subfolders to be versioned
-!Data/External/**
-!Data/Processed/**
-# (Optional) If you want Interim tracked too:
-!Data/Interim/**
-
-# Always allow the placeholder
-!.gitkeep
