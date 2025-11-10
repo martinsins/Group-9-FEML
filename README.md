@@ -1,3 +1,4 @@
+
 # Governors & Crime (IL/IA/MI, 1973–1991): DiD/FE
 
 ## Goal
@@ -18,6 +19,9 @@ Rscript Scripts/03_staggered_did.R
 Rscript Scripts/04_robustness.R
 Rscript Scripts/05_figs_tables.R
 ```
+
+##Project Structure
+
 
 Group-9-FEML/
 ├─ README.md
@@ -45,7 +49,6 @@ Group-9-FEML/
 │  └─ report.Rmd
 └─ .github/workflows/
    └─ r-pipeline.yml
-
 
 # A tight, do-able workflow
 
@@ -107,7 +110,9 @@ Apply Sun & Abraham or Callaway & Sant’Anna estimators to account for staggere
 
 ### Deliverables checklist
 
+<<<<<<< HEAD
 - Clean panel (`panel_city_year.rds`) with accompanying codebook.
 - Main table (violent crime rate) with two to three specifications plus one to two secondary tables (property/robbery).
 - Event-study figure with a pre-trend window (e.g., −5 to +5 years).
 - One-page methods and results summary with caveats.
+
