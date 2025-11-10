@@ -19,6 +19,34 @@ Rscript Scripts/04_robustness.R
 Rscript Scripts/05_figs_tables.R
 ```
 
+Group-9-FEML/
+├─ README.md
+├─ LICENSE
+├─ .gitignore
+├─ group-9-FoE.Rproj
+├─ renv.lock
+├─ renv/
+├─ Data/
+│  ├─ Raw/          # original downloads (not committed)
+│  ├─ External/     # small, cleaned covariates & lookups (commit if allowed)
+│  ├─ Interim/      # temporary outputs
+│  └─ Processed/    # analysis-ready panel (RDS/CSV)
+├─ Scripts/
+│  ├─ 00_data_check.R
+│  ├─ 00b_covariates_build.R
+│  ├─ 01_governor_party.R
+│  ├─ 02_baseline_twfe.R
+│  ├─ 03_staggered_did.R
+│  ├─ 04_robustness.R
+│  └─ 05_figs_tables.R
+├─ Analysis/
+│  ├─ figs/
+│  ├─ tables/
+│  └─ report.Rmd
+└─ .github/workflows/
+   └─ r-pipeline.yml
+
+
 # Project title
 ## 📊 EXTENSION: STATE GOVERNOR ANALYSIS (2025 ADDITION)
 
