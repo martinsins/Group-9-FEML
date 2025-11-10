@@ -1,0 +1,112 @@
+1) Lock the research design
+
+Outcomes: pick 3–5 primary (e.g., violent, property, burglary, robbery).
+
+Treatment: an indicator for Republican governor (or Democrat, pick one as baseline). Add event-time dummies for an event-study.
+
+Units & time: city-year as the main panel; optionally state-year for a cleaner aggregate.
+
+Sample rule: keep only cities ≥85k (your README says you already restricted to 28 cities). 
+GitHub
+
+2) Data audit & build
+
+Start from city_year_Iowa_Illinois_Michigan_1973_1991.csv as the main table; keep monthly_raw_... only if you later want seasonality/AR terms; keep state_group_year_... for state-year robustness. 
+GitHub
+
+Create a tidy panel: city_id, state, year, outcome(s), population, socio-econ controls (poverty, income, racial comp., density) where available.
+
+Merge governor party by state-year and exact turnover years for IL/MI and the “no change” path for IA (as per README). 
+GitHub
+
+3) Identification & specs (baseline → event-study)
+
+TWFE (city, year FE):
+y_{cst} = β * RepGov_{st} + γ_c + δ_t + X'_{cst}θ + ε_{cst}
+Cluster SEs at state (conservative) or use two-way (city & year) if you prefer.
+
+Event-study (pre-trends):
+y_{cst} = Σ_{k≠−1} β_k 1[years since switch = k] + γ_c + δ_t + X'_{cst}θ + ε_{cst}
+Plot β_k with CIs; check pre-period coefficients ~ 0.
+
+Staggered DiD correction (optional but good): apply Sun & Abraham / Callaway & Sant’Anna estimators since IL/MI switch at different times. (In R: fixest::sunab() or did package.)
+
+4) Robustness & falsification
+
+Alt outcomes: offense-specific categories.
+
+Alt samples: drop one state at a time; raise threshold (≥100k) to see if big-city subsample drives results.
+
+Alt trends: state-specific linear trends; or region-year FE if you expand later.
+
+Placebos: pretend the switch happened 3 years earlier; expect null.
+
+Weights: pop-weighted vs unweighted.
+
+Inference: wild bootstrap clustered by state (given only 3 states, report caution).
+
+5) Interpretation & write-up
+
+Summarize sign/magnitude in % terms relative to the sample mean.
+
+Discuss mechanisms (budgeting, policing directives) as hypotheses, not proof.
+
+Be explicit about limits: only 3 states; governance is not randomly assigned.
+
+Concrete to-dos in your repo (R-first)
+
+Script: 00_data_check.R
+
+Read city_year_...csv. Check duplicates, missingness, units, outliers (e.g., crime per 100k).
+
+Build crime_rate = 100k * crimes / pop.
+
+Script: 01_governor_party.R
+
+Create gov_party_st_year with IL/MI turnover years and IA constant.
+
+Construct rep_gov and event_time = year - switch_year (NA for never-switch IA). Store a clean panel_city_year.rds.
+(Your README already states the IL/MI/IA change/no-change pattern; this script codifies it.) 
+GitHub
+
+Script: 02_baseline_twfe.R (using fixest)
+
+library(fixest); library(dplyr); df <- readRDS("Data/Sorted/panel_city_year.rds")
+# baseline
+m1 <- feols(violent_rate ~ rep_gov + poverty + income + race_share + density | city_id + year,
+            data = df, cluster = "state")
+et  <- feols(violent_rate ~ sunab(state_switch_year, year) + poverty + income + race_share + density |
+               city_id + year, data = df, cluster = "state")
+iplot(et, ref.line = 0)  # event-study plot
+et_prop <- etable(m1, et, se = "cluster")
+
+
+Script: 03_staggered_did.R (optional but strong)
+
+Sun & Abraham in fixest or did::att_gt with group/time = switch cohort & year.
+
+Compare ATT path to TWFE.
+
+Script: 04_robustness.R
+
+Re-run with pop weights (fweights = pop).
+
+Exclude IL, then MI, then IA.
+
+Add state linear trends (| city_id + year[linear(state)] in fixest pattern or manually).
+
+Script: 05_figs_tables.R
+
+Event-study chart (main), baseline table, robustness summary table.
+
+Save as PNG/TeX for the paper.
+
+Deliverables checklist
+
+Clean panel (panel_city_year.rds) + codebook.
+
+One main table (violent rate) with 2–3 specs; 1–2 secondary tables (property/robbery).
+
+Event-study figure (with pre-trend window like −5..+5).
+
+1-page methods & results summary with caveats.
