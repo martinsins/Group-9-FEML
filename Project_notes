@@ -1,0 +1,266 @@
+📘 PROJECT_NOTES.md
+
+Internal Documentation for Group 9 — FEML Project
+
+Effect of Governor Party Switches on Crime (1973–1992)
+
+⸻
+
+🔷 1. Overview
+
+This document explains:
+	•	how we built the dataset
+	•	how we implemented Difference-in-Differences (DiD)
+	•	why the initial approach was incorrect
+	•	the correct final econometric design
+	•	how results should be interpreted
+	•	what remains for the report team
+
+This file is meant for team members continuing analysis & writing.
+
+⸻
+
+🔷 2. Data Construction
+2.1 Unit of analysis
+	•	ZIP code × Year panel
+	•	States: Illinois, Iowa, Michigan
+	•	Years: 1973–1992
+
+2.2 Crime data
+
+We cleaned and merged raw crime count datasets into ZIP–year form, computing:
+	•	violent_rate_100k
+	•	property_rate_100k
+	•	total_rate_100k
+
+2.3 Control variables
+
+State-level controls were merged into ZIP-level observations:
+	•	unemployment rate
+	•	demographics (% Black, % HSGrad, % Hispanic)
+	•	income
+	•	age
+
+Some ZIP-years have missing controls (early years).
+These are automatically removed by FEOLS.
+
+2.4 Treatment coding
+
+✔ treat_start = first year of governor’s party switch
+	•	Illinois → switched in 1977 (Dem → Rep)
+	•	Michigan → switched in 1983 (Rep → Dem)
+	•	Iowa → never switches (always Dem)
+
+✔ treated = 1 if year ≥ treat_start, else 0
+
+✔ event_time = year - treat_start
+
+⸻
+
+🔷 3. Why the initial approach was wrong
+
+Originally we estimated:
+crime_rate ~ Gov_Rep + controls | city_id + year
+
+But Gov_Rep is NOT a valid treatment variable because:
+
+1. Treatment is staggered
+
+Illinois switches in 1977, Michigan in 1983, Iowa never.
+
+2. Michigan switches in the opposite direction
+
+Illinois: D → R
+Michigan: R → D
+This breaks standard DID interpretation.
+
+3. TWFE models are biased under staggered adoption
+
+Based on Goodman-Bacon (2021), Sun & Abraham (2020):
+	•	units that switch earlier act as control for later switchers
+	•	Iowa (never treated) is the only valid permanent control
+	•	TWFE mixes treated and untreated incorrectly
+	•	opposite-direction switches create negative weights
+
+Thus Gov_Rep should NOT be used as a treatment dummy.
+
+➡ We switched to Sun & Abraham and correct event studies.
+
+⸻
+
+🔷 4. Correct Econometric Strategy
+
+We estimated three models.
+
+⸻
+
+⭐ 4.1 TWFE (baseline)
+
+Formula:
+crime_rate ~ treated + controls | city_id + year
+
+Purpose:
+	•	simple and familiar
+	•	gives a baseline
+	•	but biased, since treatment is staggered
+	•	use only for comparison, not causal interpretation
+
+Result:
+➡ No significant effect of party switch on any crime category.
+
+⸻
+
+⭐ 4.2 Event Study (TWFE, using i(event_time))
+
+Purpose:
+	•	check parallel pre-trends
+	•	visualize dynamic effects
+	•	illustrate treatment effect over time
+
+We estimated:
+crime_rate ~ i(event_time, ref = -1) + controls | FE
+Findings:
+	•	pre-trends are flat → parallel trends validated
+	•	no systematic post-treatment changes
+	•	effects ≈ 0, not statistically significant
+
+⸻
+
+⭐ 4.3 Sun & Abraham (2020) — Correct staggered DiD
+
+This is the correct method for our design.
+crime_rate ~ sunab(treat_start, year) | city_id + year
+Advantages:
+	•	correct weighting
+	•	avoids contamination from other treated states
+	•	compares treated states to never-treated Iowa
+	•	valid dynamic effects
+
+Findings match TWFE + Event Study:
+	•	coefficients around zero
+	•	no significant effect
+	•	large standard errors due to only 3 clusters
+
+⸻
+
+🔷 5. Summary of Findings
+
+Across all models:
+
+✔ Crime does not respond to governor party switches
+
+✔ No pre-treatment differences
+
+✔ No significant post-treatment effect
+
+✔ Illinois, Michigan, and Iowa follow similar trends
+
+✔ Effects are statistically indistinguishable from zero
+
+Interpretation:
+
+Crime trends appear driven by long-term structural factors, not short-term political party changes.
+
+⸻
+
+🔷 6. What is already saved in the repo
+
+✔ Regression tables (LaTeX-ready)
+
+Located in Analysis/tables/:
+	•	twfe_results.tex
+	•	event_study_results.tex
+	•	sa_results.tex
+
+✔ Figures (PNG)
+
+Located in Analysis/figs/:
+	•	raw trends
+	•	TWFE event studies
+	•	Sun & Abraham event studies
+
+✔ Fully reproducible pipeline
+
+Running:
+source("Scripts/05_make_output.R")
+Regenerates:
+	•	data
+	•	models
+	•	all regression tables
+	•	all plots
+
+⸻
+
+🔷 7. What the REPORT TEAM must write
+
+A detailed outline for the written report.
+
+⸻
+
+7.1 Introduction
+
+Explain:
+	•	research question
+	•	relevance of political party and crime
+	•	our approach
+	•	staggered adoption (Illinois 1977, Michigan 1983, Iowa never)
+
+⸻
+
+7.2 Data Section
+
+Include:
+	•	description of ZIP–year panel
+	•	crime rate definitions
+	•	political party timeline
+	•	control variables
+	•	raw trend figures
+
+⸻
+
+7.3 Methodology
+
+Must explain:
+	1.	why naive DiD fails
+	2.	problems with TWFE + staggered adoption
+	3.	how event studies test pre-trends
+	4.	why S&A is needed
+	5.	clustering at state level
+	6.	limitations (3 clusters = wide SEs)
+
+⸻
+
+7.4 Results
+
+Include:
+	•	TWFE table
+	•	Event study plots
+	•	Sun & Abraham plots
+	•	interpretation for each
+
+Conclude:
+	•	no significant effect
+	•	stable dynamics
+	•	no pre-trend violations
+
+⸻
+
+7.5 Conclusion
+	•	political party switches do not affect crime
+	•	crime is driven by structural differences, not governance
+	•	limitations
+	•	future work: more states, county-level data, longer panels
+
+⸻
+
+🔷 8. Reproducibility Notes
+
+Any team member can regenerate every result by running:
+source("Scripts/05_make_output.R")
+This updates:
+	•	clean panel
+	•	TWFE
+	•	event studies
+	•	Sun & Abraham
+	•	LaTeX tables
+	•	plots
