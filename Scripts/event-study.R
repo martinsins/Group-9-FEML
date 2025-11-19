@@ -1,18 +1,3 @@
-library(ggplot2)
-
-panel %>%
-  group_by(state, year) %>%
-  summarize(property_rate_100k = mean(property_rate_100k, na.rm = TRUE)) %>%
-  ggplot(aes(x = year, y = property_rate_100k, color = state)) +
-  geom_line(size = 1.2) +
-  geom_vline(xintercept = 1977, linetype = "dashed", color = "red") + 
-  geom_vline(xintercept = 1983, linetype = "dashed", color = "blue") +
-  labs(title = "Raw Property Crime Trends by State",
-       subtitle = "Dotted lines = Illinois (1977) and Michigan (1983) party switches",
-       x = "Year", y = "Crime Rate per 100k") +
-  theme_minimal(base_size = 14)
-
-
 es_property <- feols(
   property_rate_100k ~ i(event_time, ref = -1) +
     unemp_rate + Black + HSGrad + IncomeReal + age |
